@@ -1,10 +1,26 @@
 const form = document.querySelector(".login-form");
-console.log(form);
-form.addEventListener("sumbit", onFormSubmit);
 
-function onFormSubmit(event) {
+form.addEventListener("submit", handleSubmit);
+
+function handleSubmit(event) {
   event.preventDefault();
+  const {
+    elements: { email, password },
+  } = event.currentTarget;
 
-  const formData = new formData(event.currentTarget);
-  console.log(formData);
+  if (email.value === "" || password.value === "") {
+    return alert(`Заполни все поля!`);
+  }
+
+  let formResult = {};
+  const formData = new FormData(event.currentTarget);
+  formData.forEach((value, name) => {
+    formResult = {
+      email: email.value,
+      password: password.value,
+    };
+  });
+
+  console.log(formResult);
+  form.reset();
 }
